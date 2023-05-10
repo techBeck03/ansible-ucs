@@ -247,6 +247,7 @@ def main():
                         child_dn = dn + '/if-' + str(vlan['name'])
                         mo_1 = ucs.login_handle.query_dn(child_dn)
                         ucs.login_handle.remove_mo(mo_1)
+                    ucs.login_handle.commit()
                 changed = True
         else:
           # check vlan props
