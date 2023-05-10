@@ -243,10 +243,8 @@ def main():
             # mo must exist but all properties do not have to match
             if mo_exists:
                 if not module.check_mode:
-                    for vlan in module.params['vlans_list']:
-                        child_dn = dn + '/if-' + str(vlan['name'])
-                        mo_1 = ucs.login_handle.query_dn(child_dn)
-                        ucs.login_handle.remove_mo(mo_1)
+                    ucs.login_handle.remove_mo(mo)
+                    ucs.login_handle.commit()
                 changed = True
         else:
           # check vlan props
@@ -270,11 +268,16 @@ def main():
                 if not module.check_mode:
                     if module.params.get('vlans_list'):
                         for vlan in module.params['vlans_list']:
-                            mo_1 = VnicEtherIf(
-                                parent_mo_or_dn=mo,
-                                name=str(vlan['name']),
-                                default_net=vlan['native'],
-                            )
+                            if module.params['state'] == 'absent':
+                                child_dn = dn + '/if-' + str(vlan['name'])
+                                mo_1 = ucs.login_handle.query_dn(child_dn)
+                                ucs.login_handle.remove_mo(mo_1)
+                            else:
+                                mo_1 = VnicEtherIf(
+                                    parent_mo_or_dn=mo,
+                                    name=str(vlan['name']),
+                                    default_net=vlan['native'],
+                                )
 
                     ucs.login_handle.add_mo(mo, True)
                     ucs.login_handle.commit()
