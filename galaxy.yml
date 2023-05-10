@@ -3,7 +3,7 @@
 # The namespace of the collection. This can be a company/brand/organization or product namespace under which all
 # content lives. May only contain alphanumeric characters and underscores. Additionally namespaces cannot start with
 # underscores or numbers and cannot contain consecutive underscores
-namespace: cisco
+namespace: techBeck03
 
 # The name of the collection. Has the same character restrictions as 'namespace'
 name: ucs
@@ -46,7 +46,7 @@ tags: [cisco, ucs]
 dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/CiscoDevNet/ansible-ucs
+repository: https://github.com/techBeck03/ansible-ucs.git
 
 # The URL to any online docs
 documentation: https://developer.cisco.com/site/ucs-dev-center
